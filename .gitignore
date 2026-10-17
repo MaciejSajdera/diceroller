@@ -1,0 +1,10 @@
+node_modules
+dist
+screenshots-tmp
+*.log
+.env
+.env.*
+*.token
+.secrets
+.DS_Store
+coverage
