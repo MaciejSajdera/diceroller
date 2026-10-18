@@ -21,6 +21,7 @@ export function App() {
   const [presets, setPresets] = usePersistentState<UserPreset[]>('presets', []);
   const [vibrate, setVibrate] = usePersistentState('vibrate', true);
   const [sound, setSound] = usePersistentState('sound', true);
+  const [theme, setTheme] = usePersistentState<'light' | 'dark'>('theme', 'dark');
   const [stats, setStats] = usePersistentState<Stats>('stats', emptyStats());
   const [rollKey, setRollKey] = useState(0);
   const canVibrate = typeof navigator !== 'undefined' && 'vibrate' in navigator;
@@ -33,6 +34,16 @@ export function App() {
   useEffect(() => {
     setStats((prevStats) => updateStatsFromHistory(history, prevStats));
   }, [history, setStats]);
+
+  // Apply theme to document root
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
+    audioSystem.playClick();
+  };
 
   const onRolled = useCallback(
     (detail: string, result: string) => {
@@ -52,6 +63,15 @@ export function App() {
       <header className="top">
         <h1>🎲 Kości</h1>
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={`Przełącz na ${theme === 'dark' ? 'jasny' : 'ciemny'} motyw`}
+            title={`Motyw: ${theme === 'dark' ? 'ciemny' : 'jasny'}`}
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
           {canVibrate && (
             <label className="check small">
               <input type="checkbox" checked={vibrate} onChange={(e) => setVibrate(e.target.checked)} />

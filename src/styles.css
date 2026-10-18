@@ -32,12 +32,40 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f5f7fa;
+  --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  --panel: #ffffff;
+  --panel-2: #f0f4f8;
+  --panel-glow: rgba(99, 102, 241, 0.08);
+  --text: #1a1f36;
+  --text-bright: #0d1117;
+  --muted: #6b7280;
+  --accent: #059669;
+  --accent-glow: rgba(5, 150, 105, 0.25);
+  --accent-text: #ffffff;
+  --alert: #dc2626;
+  --alert-glow: rgba(220, 38, 38, 0.25);
+  --win: #059669;
+  --win-bg: #d1fae5;
+  --lose: #dc2626;
+  --lose-bg: #fee2e2;
+  --att: #f87171;
+  --def: #3b82f6;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+  --shadow-glow: 0 0 24px rgba(99, 102, 241, 0.12);
+}
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { 
   margin: 0; 
   min-height: 100dvh; 
   background: var(--bg-gradient);
   background-attachment: fixed;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; transition: transform 0.15s ease, opacity 0.15s ease; }
@@ -47,6 +75,32 @@ button:active:not(:disabled) { transform: scale(0.97); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 .app { max-width: 640px; margin: 0 auto; padding: 0 16px calc(110px + env(safe-area-inset-bottom)); }
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: var(--panel-2);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--panel-glow);
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px) rotate(20deg);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:active {
+  transform: translateY(0) rotate(0deg) scale(0.95);
+}
 .top { display: flex; align-items: center; justify-content: space-between; padding: 16px 4px 8px; }
 .top h1 { 
   font-size: 1.5rem; 
