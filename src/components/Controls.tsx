@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { audioSystem } from '../audio';
 
 export function Stepper({
   label, value, min, max, onChange, format, disabled,
@@ -52,9 +53,15 @@ export function RollButton({ onRoll, disabled, label = 'Rzuć' }: { onRoll: () =
     window.addEventListener('keydown', h);
     return () => window.removeEventListener('keydown', h);
   }, [disabled]);
+  
+  const handleClick = () => {
+    audioSystem.playClick();
+    onRoll();
+  };
+  
   return (
     <div className="roll-bar">
-      <button type="button" className="roll-btn" onClick={onRoll} disabled={disabled}>
+      <button type="button" className="roll-btn" onClick={handleClick} disabled={disabled}>
         {label}
       </button>
     </div>
