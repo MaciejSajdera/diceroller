@@ -43,6 +43,8 @@ export interface ModeProps {
   onRolled: (detail: string, result: string) => void;
   /** Animacja włączona dla ostatniego rzutu — licznik używany jako key. */
   rollKey: number;
+  /** Czy używać 3D kości (Three.js). */
+  use3D?: boolean;
 }
 
 export const uid = () =>

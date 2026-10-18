@@ -4,7 +4,7 @@ import { Die } from '../components/Die';
 import { RollButton } from '../components/Controls';
 import type { ModeProps } from '../types';
 
-export function Catan({ onRolled, rollKey }: ModeProps) {
+export function Catan({ onRolled, rollKey, use3D }: ModeProps) {
   const [vals, setVals] = useState<number[] | null>(null);
   const total = vals ? sum(vals) : null;
   const roll = () => {
@@ -16,8 +16,8 @@ export function Catan({ onRolled, rollKey }: ModeProps) {
   return (
     <section className="mode">
       <div className="dice-row">
-        <Die value={vals?.[0] ?? null} sides={6} rollKey={rollKey} tone={total === 7 ? 'alert' : undefined} />
-        <Die value={vals?.[1] ?? null} sides={6} rollKey={rollKey} tone={total === 7 ? 'alert' : undefined} />
+        <Die value={vals?.[0] ?? null} sides={6} rollKey={rollKey} tone={total === 7 ? 'alert' : undefined} use3D={use3D} />
+        <Die value={vals?.[1] ?? null} sides={6} rollKey={rollKey} tone={total === 7 ? 'alert' : undefined} use3D={use3D} />
       </div>
       <div className="result" aria-live="polite" aria-atomic="true">
         {total == null ? (

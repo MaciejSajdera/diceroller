@@ -22,6 +22,7 @@ export function App() {
   const [vibrate, setVibrate] = usePersistentState('vibrate', true);
   const [sound, setSound] = usePersistentState('sound', true);
   const [theme, setTheme] = usePersistentState<'light' | 'dark'>('theme', 'dark');
+  const [use3D, setUse3D] = usePersistentState('use3d', false);
   const [stats, setStats] = usePersistentState<Stats>('stats', emptyStats());
   const [rollKey, setRollKey] = useState(0);
   const canVibrate = typeof navigator !== 'undefined' && 'vibrate' in navigator;
@@ -55,14 +56,14 @@ export function App() {
     [mode, vibrate, sound, canVibrate, setHistory],
   );
 
-  const props = { onRolled, rollKey };
+  const props = { onRolled, rollKey, use3D };
   const presetProps = { presets, setPresets };
 
   return (
     <div className="app">
       <header className="top">
         <h1>🎲 Kości</h1>
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
           <button
             type="button"
             className="theme-toggle"
@@ -72,6 +73,10 @@ export function App() {
           >
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
+          <label className="check small">
+            <input type="checkbox" checked={use3D} onChange={(e) => setUse3D(e.target.checked)} />
+            3D kości
+          </label>
           {canVibrate && (
             <label className="check small">
               <input type="checkbox" checked={vibrate} onChange={(e) => setVibrate(e.target.checked)} />
